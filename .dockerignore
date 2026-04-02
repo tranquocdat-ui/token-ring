@@ -1,0 +1,17 @@
+.git
+.gitignore
+.classpath
+.project
+.settings/
+*.log
+*.class
+build/
+dist/
+*.swp
+*.swo
+*~
+.DS_Store
+.vscode/
+.idea/
+*.iml
+node_modules/

@@ -1,0 +1,25 @@
+# Alternative Dockerfile - Cho deployment đơn giản (Simple approach)
+# Sử dụng khi chỉ cần compile và chạy
+
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+# Copy source code
+COPY Tokenring/src ./src
+COPY Tokenring/build.xml ./
+COPY Tokenring/nbproject ./nbproject
+COPY Tokenring/manifest.mf ./
+
+# Install Ant
+RUN apt-get update && apt-get install -y ant && rm -rf /var/lib/apt/lists/*
+
+# Compile
+RUN ant clean build && ant jar
+
+# Setup environment
+ENV SERVER_NUM=1
+ENV JAVA_OPTS="-Djava.awt.headless=true"
+
+# Run
+CMD ["sh", "-c", "java ${JAVA_OPTS} -cp build/classes Server${SERVER_NUM}.Server${SERVER_NUM}"]

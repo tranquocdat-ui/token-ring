@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  server1:
+    build: .
+    container_name: tokenring-server1
+    environment:
+      - SERVER_NUM=1
+      - JAVA_OPTS=-Djava.awt.headless=true
+    ports:
+      - "5001:5000"
+    networks:
+      - tokenring-network
+    restart: unless-stopped
+
+  server2:
+    build: .
+    container_name: tokenring-server2
+    environment:
+      - SERVER_NUM=2
+      - JAVA_OPTS=-Djava.awt.headless=true
+    ports:
+      - "5002:5000"
+    networks:
+      - tokenring-network
+    restart: unless-stopped
+    depends_on:
+      - server1
+
+  server3:
+    build: .
+    container_name: tokenring-server3
+    environment:
+      - SERVER_NUM=3
+      - JAVA_OPTS=-Djava.awt.headless=true
+    ports:
+      - "5003:5000"
+    networks:
+      - tokenring-network
+    restart: unless-stopped
+    depends_on:
+      - server1
+
+  server4:
+    build: .
+    container_name: tokenring-server4
+    environment:
+      - SERVER_NUM=4
+      - JAVA_OPTS=-Djava.awt.headless=true
+    ports:
+      - "5004:5000"
+    networks:
+      - tokenring-network
+    restart: unless-stopped
+    depends_on:
+      - server1
+
+  server5:
+    build: .
+    container_name: tokenring-server5
+    environment:
+      - SERVER_NUM=5
+      - JAVA_OPTS=-Djava.awt.headless=true
+    ports:
+      - "5005:5000"
+    networks:
+      - tokenring-network
+    restart: unless-stopped
+    depends_on:
+      - server1
+
+networks:
+  tokenring-network:
+    driver: bridge
